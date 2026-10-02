@@ -2,8 +2,8 @@ import {useEffect,useMemo,useState,type ReactNode} from 'react';
 import {NavLink,useLocation,useNavigate} from 'react-router-dom';
 import {useQuery} from '@tanstack/react-query';
 import {
-  Activity,Atom,BarChart3,Brain,ChevronLeft,ChevronRight,Command,Database,
-  FlaskConical,History,LayoutDashboard,Menu,MoreHorizontal,PanelRight,PlayCircle,Search,Settings2,
+  Activity,Atom,BarChart3,Bot,Brain,ChevronLeft,ChevronRight,Command,Database,
+  FlaskConical,History,LayoutDashboard,Menu,MessageSquare,MoreHorizontal,PanelRight,PlayCircle,Search,Settings2,
   ShieldCheck,SlidersHorizontal,UserRound,X,Zap
 } from 'lucide-react';
 import {qh,setSessionToken} from '../lib/api';
@@ -52,6 +52,9 @@ const navGroups:NavGroup[]=[
   ]},
   {label:'Experiments',items:[
     {label:'Experiment registry',path:'/experiments',icon:FlaskConical},
+  ]},
+  {label:'Assistant',items:[
+    {label:'AI Assistant',path:'/ai',icon:Bot},
   ]},
 ];
 

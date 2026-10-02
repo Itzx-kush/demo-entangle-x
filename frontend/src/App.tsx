@@ -23,32 +23,42 @@ const DemoCenter=lazy(()=>import('./pages/ResearchPagesSystem').then(m=>({defaul
 const SettingsPage=lazy(()=>import('./pages/ResearchPagesSystem').then(m=>({default:m.SettingsPage})));
 const AccountPage=lazy(()=>import('./pages/AccountPage').then(m=>({default:m.AccountPage})));
 const ResearchHistoryPage=lazy(()=>import('./research/ResearchHistoryPage').then(m=>({default:m.ResearchHistoryPage})));
+const AiAssistantPage=lazy(()=>import('./pages/AiAssistantPage').then(m=>({default:m.AiAssistantPage})));
+
+import { AiProvider } from './contexts/AiContext';
+import { AiPopup } from './components/AiPopup';
 
 export default function App(){
-  return <ResearchShell>
-    <ThemeToggle/>
-    <Suspense fallback={<Loading/>}><Routes>
-      <Route path="/" element={<Overview/>}/>
-      <Route path="/datasets" element={<DatasetsRoute/>}/>
-      <Route path="/quality" element={<QualityRoute/>}/>
-      <Route path="/preprocessing" element={<PreprocessingRoute/>}/>
-      <Route path="/features" element={<FeaturesRoute/>}/>
-      <Route path="/pca" element={<PcaRoute/>}/>
-      <Route path="/training" element={<Training/>}/>
-      <Route path="/comparison" element={<Comparison/>}/>
-      <Route path="/robustness" element={<Robustness/>}/>
-      <Route path="/quantum" element={<QuantumRoute/>}/>
-      <Route path="/explainability" element={<Explainability/>}/>
-      <Route path="/prediction" element={<PredictionPage/>}/>
-      <Route path="/experiments" element={<Experiments/>}/>
-      <Route path="/experiments/:id" element={<ExperimentDetail/>}/>
-      <Route path="/demo" element={<DemoCenter/>}/>
-      <Route path="/account" element={<AccountPage/>}/>
-      <Route path="/my-research" element={<ResearchHistoryPage/>}/>
-      <Route path="/settings" element={<SettingsPage/>}/>
-      <Route path="*" element={<Navigate to="/" replace/>}/>
-    </Routes></Suspense>
-  </ResearchShell>;
+  return (
+    <AiProvider>
+      <ResearchShell>
+        <ThemeToggle/>
+        <AiPopup />
+        <Suspense fallback={<Loading/>}><Routes>
+          <Route path="/" element={<Overview/>}/>
+          <Route path="/datasets" element={<DatasetsRoute/>}/>
+          <Route path="/quality" element={<QualityRoute/>}/>
+          <Route path="/preprocessing" element={<PreprocessingRoute/>}/>
+          <Route path="/features" element={<FeaturesRoute/>}/>
+          <Route path="/pca" element={<PcaRoute/>}/>
+          <Route path="/training" element={<Training/>}/>
+          <Route path="/comparison" element={<Comparison/>}/>
+          <Route path="/robustness" element={<Robustness/>}/>
+          <Route path="/quantum" element={<QuantumRoute/>}/>
+          <Route path="/explainability" element={<Explainability/>}/>
+          <Route path="/prediction" element={<PredictionPage/>}/>
+          <Route path="/experiments" element={<Experiments/>}/>
+          <Route path="/experiments/:id" element={<ExperimentDetail/>}/>
+          <Route path="/ai" element={<AiAssistantPage/>}/>
+          <Route path="/demo" element={<DemoCenter/>}/>
+          <Route path="/account" element={<AccountPage/>}/>
+          <Route path="/my-research" element={<ResearchHistoryPage/>}/>
+          <Route path="/settings" element={<SettingsPage/>}/>
+          <Route path="*" element={<Navigate to="/" replace/>}/>
+        </Routes></Suspense>
+      </ResearchShell>
+    </AiProvider>
+  );
 }
 
 function DatasetsRoute(){ const demo=useVerifiedDemo(); return demo.active?<VerifiedDemoLanding current="/datasets"/>:<Datasets/>; }
